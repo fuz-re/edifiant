@@ -1,0 +1,13 @@
+- name: "Provision environment for app"
+  hosts: "{{ target | default('no_hosts')}}"
+  tasks:
+  - name: "Install deployment tools (git)"
+    apt: pkg=git state=present
+
+  - name: "Install web server"
+    shell: |
+      mkdir /opt/caddy
+      cd /opt/caddy
+      wget https://github.com/mholt/caddy/releases/download/v0.11.2/caddy_v0.11.2_linux_amd64.tar.gz
+      tar -xvf caddy_v0.11.2_linux_amd64.tar.gz
+      chmod +x caddy
